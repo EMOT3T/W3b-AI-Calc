@@ -1,0 +1,50 @@
+Explicação:
+Estamos buscando um sistema para armazenar e exibir notas de usuários, onde é importante diferenciar entre valores preenchidos e não preenchidos. Para isso, será utilizado o valor 11 como indicador de campo não preenchido, enquanto os valores de 0 a 10 representarão as notas válidas.
+
+Ao exibir os dados para o usuário, os valores não preenchidos serão filtrados, mostrando apenas as notas que foram inseridas. Isso facilitará a visualização e a edição dos dados.
+
+Estrutura de Dados em JavaScript:
+
+let data = [
+    {
+        userid: "id",
+        subjects: [
+            {
+                name: "Subject Name",
+                exams: {
+                    grades: Array(2).fill(0), // Array com 3 itens, inicializado com valor 0
+                    weight: p
+                },
+                activities: {
+                    grades: Array(9).fill(0), // Array com 10 itens, inicializado com valor 0
+                    weight: p
+                },
+                projects: {
+                    grades: Array(6).fill(0), // Array com 7 itens, inicializado com valor 0
+                    weight: p
+                },
+                weighted_average: {
+                    exams: mp,
+                    activities: mp,
+                    projects: mp
+                }
+            }
+        ]
+    }
+];
+
+Código para Filtrar e Tratar Valores:
+
+let dataFromDatabase = /* Dados recuperados do banco de dados */;
+let userExams = dataFromDatabase[0].subjects[0].exams.grades;
+
+// Filtrar os valores preenchidos
+let filledGrades = userExams.filter(grade => grade !== 11);
+
+// Exibir apenas os valores preenchidos para o usuário
+console.log("Notas preenchidas: " + filledGrades);
+
+// Se o usuário quiser modificar as notas, trate os valores 11 como campos não preenchidos
+userExams = userExams.map(grade => (grade === 11) ? "" : grade);
+
+Com essa estrutura de dados e o código de tratamento, poderemos armazenar e exibir as notas dos usuários de forma eficiente, diferenciando os valores preenchidos dos não preenchidos.
