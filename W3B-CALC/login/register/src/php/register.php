@@ -5,7 +5,7 @@ session_start();
 require_once('../../../include/connection/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST['fullname']) || !empty($_POST['email']) || !empty($_POST['password'])) {
+    if (!empty($_POST['fullname']) && !empty($_POST['email']) && !empty($_POST['password'])) {
         
 
         $fullname = sanitizeInput($_POST['fullname']);
