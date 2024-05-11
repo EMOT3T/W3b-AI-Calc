@@ -1,0 +1,10 @@
+.mt-2 {
+    margin-top: 10px;
+}
+.weight-field, .note-exams-field, .note-activities-field, .note-projects-field {
+    display: flex;
+    align-items: center;
+}
+.input-group {
+    margin-bottom: 10px;
+}
