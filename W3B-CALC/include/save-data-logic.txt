@@ -7,10 +7,10 @@ Estrutura de Dados em JavaScript:
 
 let data = [
     {
-        userid: "id",
+        userid: "id", //Depois vou puxar isso!
         subjects: [
             {
-                name: "Subject Name",
+                name: "Subject Name", // nome da matéria
                 exams: {
                     grades: Array(2).fill(0), // Array com 3 itens, inicializado com valor 0
                     weight: p
@@ -48,3 +48,88 @@ console.log("Notas preenchidas: " + filledGrades);
 userExams = userExams.map(grade => (grade === 11) ? "" : grade);
 
 Com essa estrutura de dados e o código de tratamento, poderemos armazenar e exibir as notas dos usuários de forma eficiente, diferenciando os valores preenchidos dos não preenchidos.
+
+
+
+
+
+
+
+// Função para coletar e salvar os dados dos inputs na estrutura fornecida
+function saveData() {
+    let data = []; // Inicializa a estrutura de dados
+
+    // Seleciona todos os elementos de notas
+    let noteElements = document.querySelectorAll('.exam-note, .activities-note, .projects-note');
+
+    // Percorre os elementos de notas
+    noteElements.forEach(element => {
+        let value = parseFloat(element.value); // Obtém o valor do input e converte para número
+
+        // Verifica se o valor é um número válido (não NaN) e está dentro do intervalo esperado (0 a 10)
+        if (!isNaN(value) && value >= 0 && value <= 10) {
+            let type = element.classList.contains('exam-note') ? 'exams' :
+                       element.classList.contains('activities-note') ? 'activities' :
+                       'projects';
+
+            let subjectElement = element.closest('.list-group-item'); // Encontra o elemento pai do input
+            let subjectName = subjectElement.querySelector('b').textContent; // Obtém o nome da disciplina
+
+            let userId = "id"; // Substitua "id" pelo ID do usuário
+
+            // Verifica se já existe um objeto de usuário com o ID especificado
+            let user = data.find(user => user.userid === userId);
+            if (!user) {
+                // Se não existir, cria um novo objeto de usuário
+                user = {
+                    userid: userId,
+                    subjects: []
+                };
+                data.push(user);
+            }
+
+            // Verifica se já existe um objeto de disciplina com o nome especificado
+            let subject = user.subjects.find(subject => subject.name === subjectName);
+            if (!subject) {
+                // Se não existir, cria um novo objeto de disciplina
+                subject = {
+                    name: subjectName,
+                    exams: { grades: Array(3).fill(11), weight: 0 }, // Inicializa com notas não preenchidas (11) e peso 0
+                    activities: { grades: Array(10).fill(11), weight: 0 },
+                    projects: { grades: Array(7).fill(11), weight: 0 },
+                    weighted_average: { exams: 0, activities: 0, projects: 0 }
+                };
+                user.subjects.push(subject);
+            }
+
+            // Atualiza as notas com o valor coletado
+            subject[type].grades[noteElements.indexOf(element)] = value;
+        }
+    });
+
+    // Calcula as médias ponderadas
+    data.forEach(user => {
+        user.subjects.forEach(subject => {
+            subject.weighted_average.exams = calculateWeightedAverage(subject.exams.grades, subject.exams.weight);
+            subject.weighted_average.activities = calculateWeightedAverage(subject.activities.grades, subject.activities.weight);
+            subject.weighted_average.projects = calculateWeightedAverage(subject.projects.grades, subject.projects.weight);
+        });
+    });
+
+    console.log(data); // Exibe a estrutura de dados no console
+}
+
+// Função para calcular a média ponderada
+function calculateWeightedAverage(grades, weight) {
+    let totalWeightedGrade = 0;
+    let totalWeight = 0;
+
+    grades.forEach((grade, index) => {
+        if (grade !== 11) { // Se a nota não for 11 (não preenchida), adiciona à média ponderada
+            totalWeightedGrade += grade * weight[index];
+            totalWeight += weight[index];
+        }
+    });
+
+    return totalWeight !== 0 ? totalWeightedGrade / totalWeight : 0; // Evita divisão por zero
+}

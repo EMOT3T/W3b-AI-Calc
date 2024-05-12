@@ -1,6 +1,5 @@
 <?php
 // include "../../include/sessionVerify/sessionVerify.php"; REQUEST SESSÃO
-
 // sessionVerify(); ATIVAR SESSÃO / LOGOUT
 ?>
 
@@ -20,19 +19,18 @@
 
 <?php // include "../../include/sidebar/sidebar.php";   SIDEBAR / NAVBAR?>
 
-    <div class="container mt-3">
+<div class="container mt-3">
+    <form onsubmit="saveData(); return false;">
         <ul class="list-group">
-
             <li class="list-group-item">
-                <b>Exames</b>
+                <b contenteditable="true">Nome da Matéria</b>
+                <br>
+                <b>Exams</b>
                 <div id="exams-section">
-                    <div class="weight-field input-group mt-2">
-                        <label for="exam1-weight" class="mr-2">Weight:</label>
-                        <input type="number" id="exam1-weight" class="exam-weight form-control" min="0" max="6" placeholder="Weight of an exam">
-                    </div>
-                    <div class="note-exams-field input-group mt-2">
-                        <label for="exam1" class="mr-2">Grade 1:</label>
-                        <input type="number" id="exam1" class="exam-note form-control" min="0" max="10" placeholder="Weight of a exam">
+                    <div class="input-group mt-2">
+                        <label for="exam1-weight" class="mr-2">Grade 1:</label>
+                        <input type="float" id="exam1" class="exam-note form-control" min="0" max="10" placeholder="Grade of an exam">
+                        <input type="float" id="exam1-weight" class="exam-weight form-control" min="0" max="10" placeholder="Weight of an exam">
                     </div>
                 </div>
                 <div class="mt-2" onclick="addExamField()" style="cursor: pointer;">
@@ -40,17 +38,14 @@
                     Add one more grade
                 </div>
             </li>
-    
+        
             <li class="list-group-item">
                 <b>Activities</b>
                 <div id="activities-section">
-                    <div class="weight-field input-group mt-2">
-                        <label for="activities1-weight" class="mr-2">Weight</label>
-                        <input type="number" id="activities-weight" class="activities-weight form-control" min="0" max="4" placeholder="Weight of an activity">
-                    </div>
-                    <div class="note-activities-field input-group mt-2">
-                        <label for="activities" class="mr-2">Grade 1:</label>
-                        <input type="number" id="activities1" class="activities-note form-control" min="0" max="10" placeholder="Grade of a activity">
+                    <div class="input-group mt-2">
+                        <label for="activities1" class="mr-2">Grade 1:</label>
+                        <input type="float" id="activities1" class="activities-note form-control" min="0" max="10" placeholder="Grade of an activity">
+                        <input type="float" id="activities1-weight" class="activities-weight form-control" min="0" max="10" placeholder="Weight of an activity">
                     </div>
                 </div>
                 <div class="mt-2" onclick="addActivitiesField()" style="cursor: pointer;">
@@ -62,13 +57,10 @@
             <li class="list-group-item">
                 <b>Projects</b>
                 <div id="projects-section">
-                    <div class="weight-field input-group mt-2">
-                        <label for="projects1-weight" class="mr-2">Weight</label>
-                        <input type="number" id="projects-weight" class="projects-weight form-control" min="0" max="4" placeholder="Weight of a project">
-                    </div>
-                    <div class="note-projects-field input-group mt-2">
-                        <label for="projects" class="mr-2">Grade 1:</label>
-                        <input type="number" id="projects1" class="projects-note form-control" min="0" max="10" placeholder="Grade of a project">
+                    <div class="input-group mt-2">
+                        <label for="projects1" class="mr-2">Grade 1:</label>
+                        <input type="float" id="projects1" class="projects-note form-control" min="0" max="10" placeholder="Grade of a project">
+                        <input type="float" id="projects1-weight" class="projects-weight form-control" min="0" max="10" placeholder="Weight of a project">
                     </div>
                 </div>
                 <div class="mt-2" onclick="addProjectsField()" style="cursor: pointer;">
@@ -76,11 +68,15 @@
                     Add one more grade
                 </div>
             </li>
-    
+
         </ul>
-    </div>
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+
+    </form>
+</div>
 
     <script src="./src/js/home-containerInsert.js"></script>
+    <script src="./src/js/home-aux.js"></script>
 
 </body>
 </html>
